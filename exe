@@ -1,0 +1,79 @@
+import random
+import string
+
+class PasswordGenerator:
+    def __init__(self):
+        # Define character sets
+        self.lowercase = list(string.ascii_lowercase)
+        self.uppercase = list(string.ascii_uppercase)
+        self.digits = list(string.digits)
+        self.special = list("!@#$%^&*()_+-=[]{}|;:,.<>?")
+        
+        # Valid password lengths
+        self.lengths = [12, 16, 20]
+        
+        # Track generated passwords
+        self.generated = set()
+        self.all_possible = []
+
+    def generate_password(self, length):
+        # Validate length
+        if length not in self.lengths:
+            raise ValueError("Length must be 12, 16, or 20")
+            
+        # Reset if all passwords used
+        if len(self.generated) >= self.calculate_max_combinations(length):
+            self.generated.clear()
+            print("All unique combinations used, starting new sequence")
+            
+        while True:
+            # Ensure minimum requirements
+            pwd = (
+                [random.choice(self.lowercase)] +  # 1 lowercase
+                [random.choice(self.uppercase)] +  # 1 uppercase
+                [random.choice(self.digits)] +     # 1 digit
+                [random.choice(self.special)]      # 1 special
+            )
+            
+            # Fill remaining length with random characters
+            remaining = length - len(pwd)
+            all_chars = self.lowercase + self.uppercase + self.digits + self.special
+            pwd.extend(random.choices(all_chars, k=remaining))
+            
+            # Shuffle the entire password
+            random.shuffle(pwd)
+            password = ''.join(pwd)
+            
+            # Check if unique
+            if password not in self.generated:
+                self.generated.add(password)
+                return password
+
+    def calculate_max_combinations(self, length):
+        # Rough estimate of possible combinations
+        total_chars = len(self.lowercase + self.uppercase + self.digits + self.special)
+        return total_chars ** length  # Simplified, actual number is lower due to requirements
+
+def main():
+    generator = PasswordGenerator()
+    
+    while True:
+        try:
+            print("\nSecure Password Generator")
+            print("Available lengths: 12, 16, 20")
+            length = int(input("Enter password length (or 0 to quit): "))
+            
+            if length == 0:
+                print("Goodbye!")
+                break
+                
+            password = generator.generate_password(length)
+            print(f"Generated Password: {password}")
+            
+        except ValueError as e:
+            print(f"Error: {e}")
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+
+if __name__ == "__main__":
+    main()
