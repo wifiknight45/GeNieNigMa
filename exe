@@ -1,4 +1,4 @@
-import random
+import secrets
 import string
 
 class PasswordGenerator:
@@ -14,7 +14,6 @@ class PasswordGenerator:
         
         # Track generated passwords
         self.generated = set()
-        self.all_possible = []
 
     def generate_password(self, length):
         # Validate length
@@ -29,19 +28,19 @@ class PasswordGenerator:
         while True:
             # Ensure minimum requirements
             pwd = (
-                [random.choice(self.lowercase)] +  # 1 lowercase
-                [random.choice(self.uppercase)] +  # 1 uppercase
-                [random.choice(self.digits)] +     # 1 digit
-                [random.choice(self.special)]      # 1 special
+                [secrets.choice(self.lowercase)] +  # 1 lowercase
+                [secrets.choice(self.uppercase)] +  # 1 uppercase
+                [secrets.choice(self.digits)] +     # 1 digit
+                [secrets.choice(self.special)]      # 1 special
             )
             
             # Fill remaining length with random characters
             remaining = length - len(pwd)
             all_chars = self.lowercase + self.uppercase + self.digits + self.special
-            pwd.extend(random.choices(all_chars, k=remaining))
+            pwd.extend(secrets.choice(all_chars) for _ in range(remaining))
             
             # Shuffle the entire password
-            random.shuffle(pwd)
+            secrets.SystemRandom().shuffle(pwd)
             password = ''.join(pwd)
             
             # Check if unique
