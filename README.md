@@ -1,3 +1,10 @@
+![Python](https://img.shields.io/badge/python-3.6+-blue.svg)
+![License](https://img.shields.io/badge/license-GPL%20v3.0-blue.svg)
+![Security](https://img.shields.io/badge/security-cryptographically%20secure-red.svg)
+![Dependencies](https://img.shields.io/badge/dependencies-none-brightgreen.svg)
+![Lengths](https://img.shields.io/badge/lengths-12%20%7C%2016%20%7C%2020-blue.svg)
+![Status](https://img.shields.io/badge/status-stable-brightgreen.svg)
+
 # GeNieNigMa
 A Python secure password generator that creates unique passwords of length 12, 16, or 20, always including lowercase, uppercase, digits, and special characters, with non-repeating sequences until all combinations are exhausted.
 
