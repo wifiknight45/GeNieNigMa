@@ -24,7 +24,7 @@ A secure password generator built in Python that creates cryptographically stron
 
 1. Clone this repository:
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/wifiknight45/GeNieNigMa/
 cd genienigma
 ```
 
